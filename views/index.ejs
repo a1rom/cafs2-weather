@@ -12,13 +12,60 @@
     <div class="container">
         <fieldset>
             <form autocomplete="off" action="/" method="post">
-                <input id="city-input" name="city" type="text" class="ghost-input" placeholder="Enter a City" required>
-                <input type="submit" class="ghost-button" value="Get Weather">
+                <div class="autocomplete">
+                    <input id="city-input" name="city" type="text" placeholder="Enter a City" required>
+                </div>
+                <input type="submit" value="Get Weather">
             </form>
         </fieldset>
     </div>
-    <div id ="display" class="container" hidden>
+    <div id ="display" class="container">
 
+
+    <% weather.forecasts.forEach((f)=> { %>
+    <section class="container" style="background-color: #4B515D;">
+        <div class="container py-2">
+        
+            <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-md-8 col-lg-6 col-xl-4">
+        
+                <div class="card" style="color: #4B515D; border-radius: 35px;">
+                <div class="card-body p-4">
+        
+                    <div class="d-flex">
+                    <h6 class="flex-grow-1"><%= weather.cityName %></h6>
+                    <h6>HH:MM</h6>
+                    </div>
+        
+                    <div class="d-flex flex-column text-center mt-5 mb-4">
+                    <h6 class="display-4 mb-0 font-weight-bold" style="color: #1C2331;"> <%= f.airTemperature %> </h6>
+                    <span class="small" style="color: #868B94">Dummy</span>
+                    </div>
+        
+                    <div class="d-flex align-items-center">
+                    <div class="flex-grow-1" style="font-size: 1rem;">
+                        <div><i class="fas fa-wind fa-fw" style="color: #868B94;"></i> <span class="ms-1"> <%= f.windSpeed %>
+                        </span></div>
+                        <div><i class="fas fa-tint fa-fw" style="color: #868B94;"></i> <span class="ms-1"> <%= f.windDirection %> </span>
+                        </div>
+                        <div><i class="fas fa-sun fa-fw" style="color: #868B94;"></i> <span class="ms-1"> <%= f.relativeHumidity %> </span>
+                        </div>
+                    </div>
+                    <div>
+                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-weather/ilu1.webp"
+                        width="100px">
+                    </div>
+                    </div>
+        
+                </div>
+                </div>
+        
+            </div>
+            </div>
+        
+        </div>
+        </section>
+        <% }) %>
 
         <div class="weather-container">
             <div class="weather-header">

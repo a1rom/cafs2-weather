@@ -29,7 +29,7 @@ app.route('/').
                 res.render('index', { error: weather.error });
             } else {
                 weather = formatWeatherData(weather);
-                console.log(weather)
+                // console.log(weather)
                 res.render('index', { weather: weather });
             }
         });
