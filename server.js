@@ -18,17 +18,22 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.set('view engine', 'ejs');
 
-app.get('/', function (req, res) {
-    res.render('index');
-});
-
-app.post('/', function (req, res) {
-    console.log(req.body.city);
-    getWeather(req.body.city, function (weather) {
-        res.render('index', { weather: weather });
+app.route('/').
+    get((req, res) => {
+        res.render('index');
+    })
+    .post((req, res) => {
+        console.log(req.body.city);
+        getWeather(req.body.city, function (weather) {
+            if (weather.error) {
+                res.render('index', { error: weather.error });
+            } else {
+                weather = formatWeatherData(weather);
+                console.log(weather)
+                res.render('index', { weather: weather });
+            }
+        });
     });
-    // res.render('index');
-});
 
 app.get('/api/v1/cities', async function (req, res) { 
     let cities = await fsPromises.readFile('./resources/cities.json', { encoding: 'utf8'});
@@ -41,7 +46,7 @@ app.get('/api/v1/cities', async function (req, res) {
 });
   
 app.listen(3000, function () {
-    console.log('Server is up on port 3000')
+    console.log('Server is up on port 3000!')
 });
 
 let getWeather = function (city, callback) {    
@@ -55,12 +60,21 @@ let getWeather = function (city, callback) {
         })
         .on('end', () => {
             const weather = JSON.parse(data);
-            console.log(weather);
             callback(weather);
         })
         .on('error', (error) => {
             console.log(error);
         });
     });
+};
+
+function formatWeatherData(data) {
+    let weather = {};
+    weather.cityName = data.place.name;
+    weather.location = {
+        "lat": data.place.coordinates.latitude, 
+        "long": data.place.coordinates.longitude};
+    weather.forecasts = data.forecastTimestamps;
+    return weather;
 }
 

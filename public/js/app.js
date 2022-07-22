@@ -1,4 +1,5 @@
-// get cities from api
+const display = document.getElementById('display');
+
 async function getCities() {
     let url = `/api/v1/cities`;
     let response = await fetch(url);
@@ -8,5 +9,7 @@ async function getCities() {
 
 getCities().then(cities => {
     autocomplete(document.getElementById("city-input"), cities);
+    display.style.display = "block";
 })
 .catch(error => console.log(error));
+
