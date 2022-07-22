@@ -4,18 +4,20 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
     <title>Document</title>
 </head>
 <body>
     <div class="container">
         <fieldset>
-            <form action="/" method="post">
-                <input name="city" type="text" class="ghost-input" placeholder="Enter a City" required>
+            <form autocomplete="off" action="/" method="post">
+                <input id="city-input" name="city" type="text" class="ghost-input" placeholder="Enter a City" required>
                 <input type="submit" class="ghost-button" value="Get Weather">
             </form>
         </fieldset>
     </div>
+    <script src="./js/autocomplete.js"></script>
+    <script src="./js/app.js"></script>
 </body>
 </html>

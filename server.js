@@ -1,6 +1,16 @@
 const express = require('express');
+// import express from 'express';
 const bodyParser = require('body-parser');
-const https = require('https');
+// import bodyParser from 'body-parser';
+const https = require('node:https');
+// import https from 'https';
+const fs = require('node:fs');
+const fsPromises = require('node:fs/promises');
+const diacritics = require('diacritic');
+
+const updateCitiesJson = require('./services/updateCitiesJson');
+
+
 const app = express();
 
 app.use(express.static('public'));
@@ -19,13 +29,24 @@ app.post('/', function (req, res) {
     });
     // res.render('index');
 });
+
+app.get('/api/v1/cities', async function (req, res) { 
+    let cities = await fsPromises.readFile('./resources/cities.json', { encoding: 'utf8'});
+    let todayDate = new Date().toISOString().substring(0,10);
+    if (JSON.parse(cities).date != todayDate || JSON.parse(cities).cities.length == 0) {
+        // console.log('need to update the cities');
+        await updateCitiesJson(todayDate);
+    } 
+    res.send(JSON.parse(cities).cities);   
+});
   
 app.listen(3000, function () {
-    console.log('Example app listening on port 3000!')
+    console.log('Server is up on port 3000')
 });
 
-getWeather = function (city, callback) {
-    const url = `https://api.meteo.lt/v1/places/${city}`;
+let getWeather = function (city, callback) {    
+    city = diacritics.clean(city);
+    const url = `https://api.meteo.lt/v1/places/${city.toLowerCase()}/forecasts/long-term`;
     console.log(url);
     https.get(url, (response) => {
         let data = '';
@@ -42,3 +63,4 @@ getWeather = function (city, callback) {
         });
     });
 }
+
