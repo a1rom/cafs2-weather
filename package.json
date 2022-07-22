@@ -2,14 +2,27 @@
   "name": "cafs2-weather",
   "version": "1.0.0",
   "description": "Weather Forecast App",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
+    "start": "nodemon server.js",
+    "run": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [
+    "weather",
+    "forecast"
+  ],
   "repository": {
     "type": "git",
-    "url": "git"
+    "url": ""
   },
   "author": "alrom",
-  "license": "MIT"
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.8",
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
 }
