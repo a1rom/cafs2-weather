@@ -3,4 +3,5 @@ node_modules
 sample.json
 public/css
 public/fonts
-
+public/mix.js.map
+public/mix-manifest.json
