@@ -6,20 +6,17 @@ This is my first project on Node.js and JavaScript, which get current and future
 
 ## Launch
 To run this project, insall it locally using npm:
-
-
 ```
-$ cd ../lorem
-$ npm install
-$ npm start
-```
-
-
 $ npm i
+```
 and create css file via laravel-mix:
+```
 $ npm run prod
+```
 finally start the nodeamon:
+```
 $ npm run dev-start
+```
 
 Now go to http://localhost:3000
 
