@@ -19,9 +19,9 @@
   ],
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "git+https://github.com/alrom12/cafs2-weather.git"
   },
-  "author": "alrom",
+  "author": "Aleksandrs Romanenkovs",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.27.2",
