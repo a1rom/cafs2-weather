@@ -9,11 +9,11 @@ To run this project, insall it locally using npm:
 ```
 $ npm i
 ```
-and create css file via laravel-mix:
+create css and font files via laravel-mix:
 ```
 $ npm run prod
 ```
-finally start the nodeamon:
+and finally start the nodeamon:
 ```
 $ npm run dev-start
 ```
@@ -33,4 +33,5 @@ Project is created with:
 * https://www.w3schools.com/howto/howto_js_autocomplete.asp - autocomplete search field
 * https://mdbootstrap.com/docs/standard/extended/weather/ - weather card view
 
-
+## Contact
+Any questions or suggestion, please drop an email to dev@alrom.de
