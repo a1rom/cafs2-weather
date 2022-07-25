@@ -34,4 +34,4 @@ Project is created with:
 * https://mdbootstrap.com/docs/standard/extended/weather/ - weather card view
 
 ## Contact
-Any questions or suggestion, please drop an email to dev@alrom.de
+Any questions or suggestion, please send an email to dev@alrom.de
