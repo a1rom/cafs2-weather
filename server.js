@@ -18,13 +18,17 @@ app.route('/').
     })
     .post((req, res) => {
         console.log(req.body.city);
+        // let bla = checkIfCityValid(req.body.city);
+        // console.log('bla kuku', bla);
+        // if (!bla.includes(req.body.city)) {
+        //     req.body.city = "Vilnius";
+        // }
         getWeather(req.body.city, (weather) => {
             if (weather.error) {
                 res.render('index', { error: weather.error });
             } else {
                 weather = formatWeatherData(weather);
-                console.log('kuku weather now after f', weather.now);
-                res.render('index', { weatherNow: weather.now });
+                res.render('result', { weatherNow: weather.now });
             }
         });
     });
@@ -43,7 +47,7 @@ app.listen(3000, function () {
     console.log('Server is up on port 3000!')
 });
 
-let getWeather = function (city, callback) {    
+function getWeather(city, callback) {    
     city = diacritics.clean(city);
     const url = `https://api.meteo.lt/v1/places/${city.toLowerCase()}/forecasts/long-term`;
     console.log(url);
@@ -71,6 +75,38 @@ function formatWeatherData(data) {
         "long": data.place.coordinates.longitude};
     weather.forecasts = data.forecastTimestamps;
     weather.now = weather.forecasts.find(forecast => forecast.forecastTimeUtc == nowDateHour);
+    weather.now.airTemperature = Math.round(weather.now.airTemperature);
+    weather.now.date = weather.now.forecastTimeUtc.substring(0,10);
+    weather.now.time = weather.now.forecastTimeUtc.substring(11,16);
+    weather.now.cityName = data.place.name;
+    weather.now.windDirectionLetter = getWindDirectionLetter(weather.now.windDirection);
     return weather;
 }
+
+function getWindDirectionLetter(direction) {
+    let directions = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'];
+    let directionIndex = Math.round(direction / 22.5);
+    return directions[directionIndex];
+}
+
+// function checkIfCityValid(input) {
+//     let file = fs.readFile('./resources/cities.json', { encoding: 'utf8'});
+//     let cities = JSON.parse(file).cities;
+//     let validCities = [];
+//     cities.forEach(city => {
+//         if (city.name.toLowerCase().includes(input.toLowerCase())) {
+//             validCities.push(city.name);
+//         }
+//     }
+//     );
+//     return validCities;
+// }
+
+    // cities = JSON.parse(file);
+    // console.log('my input in f', input)
+    // if (cities.cities.includes(input)) {
+    //     console.log('city found i have returened true');
+    //     return true;
+    // }
+
 

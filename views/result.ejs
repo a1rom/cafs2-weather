@@ -1,0 +1,63 @@
+<%- include('./header.ejs') %>
+    <section class="container mt-5" style="background-color: lightgrey;">
+        <div class="container py-2">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-md-8 col-lg-6 col-xl-4">
+                    <div class="card" style="color: #4B515D; border-radius: 35px;">
+                        <div class="card-body p-4">                
+                            <div class="d-flex">
+                                <h6 class="flex-grow-1"> <%= weatherNow.cityName %> </h6>
+                                <h6><%= weatherNow.time %></h6>
+                            </div>                
+                            <div class="d-flex flex-column text-center mt-5 mb-4">
+                                <h6 class="display-4 mb-0 font-weight-bold" style="color: #1C2331;"> <%= weatherNow.airTemperature %> °C</h6>
+                                <span class="small" style="color: #868B94"><%= weatherNow.conditionCode %></span>
+                            </div>                
+                            <div class="d-flex align-items-center">
+                                <div class="flex-grow-1" style="font-size: 1rem;">
+                                    <div>
+                                        <i class="bi bi-wind"></i>
+                                        <span class="ms-1 ps-2"> <%= weatherNow.windSpeed %> m/s, <%= weatherNow.windDirectionLetter %> </span>
+                                    </div>
+                                    <div>
+                                        <i class="bi bi-moisture"></i>
+                                        <span class="ms-1 ps-2"> <%= weatherNow.relativeHumidity %> %</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <% if(weatherNow.conditionCode === "clear"){ %>
+                                            <i class="bi bi-sun"></i>
+                                        <% } else if (weatherNow.conditionCode === "isolated-clouds" || weatherNow.conditionCode === "scattered-clouds"){ %>
+                                            <i class="bi bi-cloud-sun"></i>
+                                        <% } else if (weatherNow.conditionCode === "isolated-clouds"){ %>
+                                            <i class="bi bi-cloud-sun"></i>
+                                        <% } else if (weatherNow.conditionCode === "overcast"){ %>
+                                            <i class="bi bi-cloud"></i>
+                                        <% } else if (weatherNow.conditionCode === "light-rain"){ %>
+                                            <i class="bi bi-cloud-drizzle"></i>
+                                        <% } else if (weatherNow.conditionCode === "moderate-rain"){ %>
+                                            <i class="bi bi-cloud-rain"></i>
+                                        <% } else if (weatherNow.conditionCode === "heavy-rain"){ %>
+                                            <i class="bi bi-cloud-rain-heavy"></i>
+                                        <% } else if (weatherNow.conditionCode === "sleet"){ %>
+                                            <i class="bi bi-cloud-sleet"></i>
+                                        <% } else if (weatherNow.conditionCode === "light-snow"){ %>
+                                            <i class="bi bi-cloud-snow"></i>
+                                        <% } else if (weatherNow.conditionCode === "moderate-snow"){ %>
+                                            <i class="bi bi-cloud-snow"></i>
+                                        <% } else if (weatherNow.conditionCode === "heavy-snow"){ %>
+                                            <i class="bi bi-cloud-snow"></i>
+                                        <% } else if (weatherNow.conditionCode === "fog"){ %>
+                                            <i class="bi bi-cloud-fog"></i>
+                                        <% } else { %>
+                                            <i class="bi bi-search"></i>
+                                        <% } %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                </div>
+            </div>
+        </div>       
+    </section>
+<%- include('./footer.ejs') %>

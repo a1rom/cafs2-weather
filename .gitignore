@@ -1,2 +1,6 @@
 .env
 node_modules
+sample.json
+public/css
+public/fonts
+
