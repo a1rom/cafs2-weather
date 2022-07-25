@@ -1,21 +1,15 @@
 const express = require('express');
-// import express from 'express';
+const app = express();
 const bodyParser = require('body-parser');
-// import bodyParser from 'body-parser';
-const https = require('node:https');
-// import https from 'https';
-const fs = require('node:fs');
-const fsPromises = require('node:fs/promises');
 const diacritics = require('diacritic');
-
 const updateCitiesJson = require('./services/updateCitiesJson');
 
-
-const app = express();
+const https = require('node:https');
+const fs = require('node:fs');
+const fsPromises = require('node:fs/promises');
 
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
-
 app.set('view engine', 'ejs');
 
 app.route('/').
@@ -24,13 +18,13 @@ app.route('/').
     })
     .post((req, res) => {
         console.log(req.body.city);
-        getWeather(req.body.city, function (weather) {
+        getWeather(req.body.city, (weather) => {
             if (weather.error) {
                 res.render('index', { error: weather.error });
             } else {
                 weather = formatWeatherData(weather);
-                // console.log(weather)
-                res.render('index', { weather: weather });
+                console.log('kuku weather now after f', weather.now);
+                res.render('index', { weatherNow: weather.now });
             }
         });
     });
@@ -70,11 +64,13 @@ let getWeather = function (city, callback) {
 
 function formatWeatherData(data) {
     let weather = {};
+    let nowDateHour = new Date(Date.UTC(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), new Date().getHours(), new Date().getMinutes(), new Date().getSeconds())).toISOString().substring(0,13).replace('T', ' ') + ':00:00';
     weather.cityName = data.place.name;
     weather.location = {
         "lat": data.place.coordinates.latitude, 
         "long": data.place.coordinates.longitude};
     weather.forecasts = data.forecastTimestamps;
+    weather.now = weather.forecasts.find(forecast => forecast.forecastTimeUtc == nowDateHour);
     return weather;
 }
 
