@@ -11,8 +11,8 @@ app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 
-app.route('/').
-    get((req, res) => {
+app.route('/')
+    .get((req, res) => {
         res.render('index');
     })
     .post((req, res) => {
